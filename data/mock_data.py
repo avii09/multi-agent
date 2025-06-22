@@ -98,7 +98,7 @@ def generate_orders(clients, courses, classes, count=200):
             "price": course["price"]
         })
     
-    # Add classes as services  
+    
     for class_obj in classes:
         all_services.append({
             "id": class_obj["class_id"],
@@ -167,5 +167,4 @@ def generate_attendance(classes, clients):
     
     return attendance_records
 
-# Install faker if you don't have it
-# pip install faker
+

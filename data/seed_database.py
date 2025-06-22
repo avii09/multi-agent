@@ -9,11 +9,11 @@ def seed_database():
     """Populate database with mock data"""
     print("Starting database seeding...")
     
-    # Test connection first
+    #test connection
     if not test_connection():
         return False
     
-    # Generate all data
+    
     print("Generating mock data...")
     clients = generate_clients(50)
     courses = generate_courses(5)
@@ -22,7 +22,7 @@ def seed_database():
     payments = generate_payments(orders)
     attendance = generate_attendance(classes, clients)
     
-    # Insert data into collections
+    #insert data into collections
     collections_data = {
         "clients": clients,
         "courses": courses,
@@ -35,9 +35,9 @@ def seed_database():
     for collection_name, data in collections_data.items():
         if data:
             collection = get_sync_collection(collection_name)
-            # Clear existing data
+            # clear existing data
             collection.drop()
-            # Insert new data
+            # insert new data
             collection.insert_many(data)
             print(f"Inserted {len(data)} records into {collection_name}")
     
