@@ -140,12 +140,12 @@ streamlit run app.py
 
 ## API Endpoints
 
-### Agent Queries
+### Agent Queries (You can test using Postman)
 ```http
 POST /support/query
 Content-Type: application/json
 {
-    "prompt": "Show me all pending orders for John Doe"
+    "prompt": "Show me all pending orders for John Wells"
 }
 ```
 
@@ -157,7 +157,7 @@ Content-Type: application/json
 }
 ```
 
-### Test Endpoints
+### Test Endpoints (Using Postman)
 - `GET /test/..` for tool testing routes
 
 ## Query Examples
@@ -166,9 +166,9 @@ Content-Type: application/json
 
 ```bash
 # Client Management
-"Find all clients named Sarah"
+"Find all clients named Danielle"
 "Show me orders for CLIENT_0001"
-"What are the pending dues for John Doe?"
+"What are the pending dues for Scott Brown?"
 
 # Class Management
 "Book CLIENT_0001 for the morning yoga class"
