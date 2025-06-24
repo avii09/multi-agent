@@ -3,7 +3,10 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, LLM
 from crewai.tools import tool
 from tools.mongodb_tool import MongoDBTool
+from utils.translate import translate_to_english
+from tools.memory_backend import MongoMemoryBackend
 
+memory_backend = MongoMemoryBackend()
 
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -127,14 +130,22 @@ def create_dashboard_task(prompt: str):
     )
 
 #crew builder
-def get_dashboard_crew(prompt: str):
+def get_dashboard_crew(prompt: str, session_id: str = "default_user"):
     try:
-        task = create_dashboard_task(prompt)
+        memory_log = memory_backend.get_memory(session_id)
+        memory_context = "\n".join(memory_log)
+
+        translated_prompt = translate_to_english(llm, prompt)
+        full_prompt = f"{memory_context}\n\nNew Query: {translated_prompt}"
+
+        memory_backend.save_memory(session_id, translated_prompt)
+
+        task = create_dashboard_task(full_prompt)
         return Crew(
             agents=[dashboard_agent],
             tasks=[task],
             verbose=True,
-            memory=False
+            memory=True
         )
     except Exception as e:
         print(f"Error creating dashboard crew: {e}")

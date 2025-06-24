@@ -4,7 +4,10 @@ from crewai import Agent, Task, Crew, LLM
 from crewai.tools import tool
 from tools.mongodb_tool import MongoDBTool
 from tools.external_api_tool import ExternalAPITool
+from utils.translate import translate_to_english
+from tools.memory_backend import MongoMemoryBackend
 
+memory_backend = MongoMemoryBackend()
 
 load_dotenv()
 
@@ -24,7 +27,6 @@ llm = LLM(
 
 mongo = MongoDBTool()
 external = ExternalAPITool()
-
 
 
 @tool("Search Clients")
@@ -170,14 +172,22 @@ def create_support_task(prompt: str):
     )
 
 #crew builder
-def get_support_crew(prompt: str):
+def get_support_crew(prompt: str, session_id: str = "default_user"):
     try:
-        task = create_support_task(prompt)
+        memory_log = memory_backend.get_memory(session_id)
+        memory_context = "\n".join(memory_log)
+
+        translated_prompt = translate_to_english(llm, prompt)
+        full_prompt = f"{memory_context}\n\nNew Query: {translated_prompt}"
+
+        memory_backend.save_memory(session_id, translated_prompt)
+
+        task = create_support_task(full_prompt)
         return Crew(
             agents=[support_agent],
             tasks=[task],
             verbose=True,
-            memory=False,
+            memory=True,
             max_rpm=10
         )
     except Exception as e:
