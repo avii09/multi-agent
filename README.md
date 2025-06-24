@@ -15,7 +15,7 @@ An AI-powered backend system for a fitness studio that leverages CrewAI agents t
 - **Translation Support**: Multi-language query handling
 
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 multi-agent/
@@ -42,7 +42,7 @@ multi-agent/
 
 
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -90,9 +90,9 @@ uvicorn main:app --reload --port 8000
 streamlit run app.py
 ```
 
-## 🤖 Agent Capabilities
+## Agent Capabilities
 
-### 🎯 Support Agent
+### Support Agent
 **Role**: Fitness Studio Support Specialist
 **Specializes in**:
 - Client search and management
@@ -109,7 +109,7 @@ streamlit run app.py
 - `create_client_enquiry()` - Register new client
 - `create_order()` - Place service orders
 
-### 📊 Dashboard Agent
+### Dashboard Agent
 **Role**: Business Analytics Expert
 **Specializes in**:
 - Revenue analysis and reporting
@@ -126,7 +126,7 @@ streamlit run app.py
 - `get_top_services()` - Revenue-generating services
 - `get_attendance_percentage()` - Class attendance rates
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### Core Collections
 
@@ -138,7 +138,7 @@ streamlit run app.py
 #### Payments
 
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Agent Queries
 ```http
@@ -160,7 +160,7 @@ Content-Type: application/json
 ### Test Endpoints
 - `GET /test/..` for tool testing routes
 
-## 💬 Query Examples
+## Query Examples
 
 ### Support Agent Queries
 
@@ -197,7 +197,7 @@ Content-Type: application/json
 "Which instructor has the highest class attendance?"
 ```
 
-## 🧠 Memory & Context
+## Memory & Context
 
 The system maintains conversation context using MongoDB-backed memory:
 
@@ -210,7 +210,7 @@ crew = get_support_crew(prompt, session_id="user_123")
 "Continue with that client's order history"
 ```
 
-## 🌐 Multi-language Support
+## Multi-language Support
 
 Built-in translation for non-English queries:
 
@@ -224,7 +224,7 @@ Built-in translation for non-English queries:
 ### Sample Test Data
 The system includes 50+ mock clients, 25 classes, 10 courses, and 100+ orders for comprehensive testing.
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 | Variable | Description | Default |
@@ -238,7 +238,7 @@ The system includes 50+ mock clients, 25 classes, 10 courses, and 100+ orders fo
 # Customize agent behavior
 llm = LLM(
     model="gemini/gemini-1.5-flash",
-    temperature=0.7,  # Creativity level
+    temperature=0.7,  
     max_tokens=1000
 )
 ```
