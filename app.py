@@ -23,6 +23,17 @@ session_id = None
 with st.expander("⚙️ Advanced Options"):
     session_id = st.text_input("Session ID (optional)", placeholder="Enable memory by entering an ID")
 
+# Function to extract and show only the 'raw' part of the response
+def display_response(response_data):
+    st.markdown("### 🤖 Agent Response")
+    raw = (
+        response_data.get("raw")
+        or response_data.get("response", {}).get("raw")
+        or response_data.get("response", {}).get("tasks_output", [{}])[0].get("raw")
+        or "No response available."
+    )
+    st.markdown(f"**{raw}**")
+
 # Submit button
 if st.button("Submit"):
     if not user_query:
@@ -37,8 +48,7 @@ if st.button("Submit"):
             response = requests.post(f"{API_BASE}{endpoint}", json=payload)
             if response.status_code == 200:
                 result = response.json()
-                st.markdown("### 🤖 Agent Response:")
-                st.write(result.get("response"))
+                display_response(result.get("response", {}))
             else:
                 st.error(f"Error {response.status_code}: {response.text}")
         except requests.exceptions.RequestException as e:
