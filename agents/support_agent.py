@@ -187,7 +187,7 @@ def get_support_crew(prompt: str, session_id: str = "default_user"):
             agents=[support_agent],
             tasks=[task],
             verbose=True,
-            memory=True,
+            memory=False,
             max_rpm=10
         )
     except Exception as e:

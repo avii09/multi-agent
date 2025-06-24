@@ -145,7 +145,7 @@ def get_dashboard_crew(prompt: str, session_id: str = "default_user"):
             agents=[dashboard_agent],
             tasks=[task],
             verbose=True,
-            memory=True
+            memory=False
         )
     except Exception as e:
         print(f"Error creating dashboard crew: {e}")
